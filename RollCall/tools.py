@@ -15,12 +15,13 @@ def read_course(cno: int):
     return course, gpa
 
 
-def less_gpa(gpa: list, point: int):
+def less_gpa(gpa: list, point: float):
     less = []
-    for index, value in gpa:
+    for index, value in enumerate(gpa):
         if value < point:
             less.append(index)
     return less
+
 
 
 
