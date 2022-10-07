@@ -23,5 +23,29 @@ def less_gpa(gpa: list, point: float):
     return less
 
 
-
-
+def roll_call_rate(course: list, less: list):
+    total_times = 0
+    eff_times = 0
+    absent = []
+    for i in range(len(course)):
+        # 第一次对绩点较低全点
+        if i == 0:
+            for j in less:
+                total_times += 1
+                if course[i][j] == 0:
+                    absent.append(j)
+                    eff_times += 1
+        # 第二次排除只有第一次未到的学生
+        elif i == 1:
+            for j in absent:
+                total_times += 1
+                if course[i][j] == 1:
+                    absent.remove(j)
+                else:
+                    eff_times += 1
+        else:
+            for j in absent:
+                total_times += 1
+                if course[i][j] == 0:
+                    eff_times += 1
+    return eff_times / total_times
