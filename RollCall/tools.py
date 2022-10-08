@@ -6,6 +6,7 @@
 # @Software: PyCharm
 
 import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
 
 
 def read_course(cno: int):
@@ -23,7 +24,7 @@ def less_gpa(gpa: list, point: float):
     return less
 
 
-def roll_call_rate(course: list, less: list):
+def roll_call_fakerl(course: list, less: list):
     total_times = 0
     eff_times = 0
     absent = []
@@ -48,4 +49,22 @@ def roll_call_rate(course: list, less: list):
                 total_times += 1
                 if course[i][j] == 0:
                     eff_times += 1
+    return eff_times / total_times
+
+
+def roll_call_knn(course: list):
+    stuno = np.array(list(range(90)))
+    total_times = 0
+    eff_times = 0
+    for i in range(1, len(course)):
+        knn = KNeighborsClassifier(n_neighbors=3)
+        knn.fit(np.tile(stuno, i).reshape(-1, 1), np.array(course[0:i]).reshape(-1, 1))
+        pre = knn.predict(stuno.reshape(-1, 1)).astype(int).tolist()
+        for j, value in enumerate(pre):
+            print(j)
+            if value == 0:
+                total_times += 1
+                if course[i][j] == 0:
+                    eff_times += 1
+
     return eff_times / total_times
