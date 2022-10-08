@@ -66,5 +66,4 @@ def roll_call_knn(course: list):
                 total_times += 1
                 if course[i][j] == 0:
                     eff_times += 1
-
     return eff_times / total_times
