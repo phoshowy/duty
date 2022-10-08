@@ -9,8 +9,11 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
 
-def read_course(cno: int):
-    path = "../course_data/course" + str(cno) + "/result" + str(cno) + ".csv"
+def read_course(cno: int, opt: int):
+    if opt == 0:
+        path = "../course_data/course" + str(cno) + "/result" + str(cno) + ".csv"
+    else:
+        path = "../new_course/" + str(cno) + "/" + str(cno) + ".csv"
     course = np.genfromtxt(path, delimiter=',', skip_header=True).tolist()
     gpa = course.pop(-1)
     return course, gpa
