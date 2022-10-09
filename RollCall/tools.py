@@ -75,6 +75,11 @@ def calculate_e(res: list):
     eff = 0
     total = 0
     for r in res:
-        eff += r[0]
-        total += r[1]
+        if isinstance(r, tuple):
+            eff += r[0]
+            total += r[1]
+        else:
+            eff = res[0]
+            total = res[1]
+            break
     return eff / total

@@ -13,7 +13,7 @@ rate = []
 for i in range(1, 11):
     course, gpa = read_course(i, 1)
     less = less_gpa(gpa, point)
-    rate.append(roll_call_fakerl(course, less))
+    rate.append(calculate_e(roll_call_fakerl(course, less)))
 
 print("平均值为：%f" % np.mean(rate))
 print("方差为：%f" % np.var(rate))

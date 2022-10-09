@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 points = [point / 10 for point in range(20, 30)]
 
 for i in range(1, 6):
-    course, gpa = read_course(i)
+    course, gpa = read_course(i, 0)
     rate = []
     for point in points:
         less = less_gpa(gpa, point)
-        rate.append(roll_call_fakerl(course, less))
+        rate.append(calculate_e(roll_call_fakerl(course, less)))
     plt.plot(points, rate)
 
 plt.savefig("../course_data/gpa.png")
