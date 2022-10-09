@@ -52,7 +52,7 @@ def roll_call_fakerl(course: list, less: list):
                 total_times += 1
                 if course[i][j] == 0:
                     eff_times += 1
-    return eff_times / total_times
+    return eff_times, total_times
 
 
 def roll_call_knn(course: list):
@@ -64,9 +64,17 @@ def roll_call_knn(course: list):
         knn.fit(np.tile(stuno, i).reshape(-1, 1), np.array(course[0:i]).reshape(-1, 1))
         pre = knn.predict(stuno.reshape(-1, 1)).astype(int).tolist()
         for j, value in enumerate(pre):
-            print(j)
             if value == 0:
                 total_times += 1
                 if course[i][j] == 0:
                     eff_times += 1
-    return eff_times / total_times
+    return eff_times, total_times
+
+
+def calculate_e(res: list):
+    eff = 0
+    total = 0
+    for r in res:
+        eff += r[0]
+        total += r[1]
+    return eff / total
