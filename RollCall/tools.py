@@ -10,6 +10,11 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 def read_course(cno: int, opt: int):
+    """
+    :param cno: 需要读取的课程id
+    :param opt: 若为0,读取课程信息;若为1,读取测试集信息
+    :return: 出勤课程情况和绩点信息
+    """
     if opt == 0:
         path = "../course_data/course" + str(cno) + "/result" + str(cno) + ".csv"
     else:
@@ -20,6 +25,11 @@ def read_course(cno: int, opt: int):
 
 
 def less_gpa(gpa: list, point: float):
+    """
+    :param gpa: 绩点信息
+    :param point: 特定绩点值
+    :return: 低于特定绩点值的学生编号
+    """
     less = []
     for index, value in enumerate(gpa):
         if value < point:
@@ -27,14 +37,19 @@ def less_gpa(gpa: list, point: float):
     return less
 
 
-def roll_call_fakerl(course: list, less: list):
+def roll_call_fakerl(course: list, gpa: list):
+    """
+    :param course: 课程信息
+    :param gpa: 需要抽取的学生学号
+    :return: 有效点名次数和总次数
+    """
     total_times = 0
     eff_times = 0
     absent = []
     for i in range(len(course)):
         # 第一次对绩点较低全点
         if i == 0:
-            for j in less:
+            for j in gpa:
                 total_times += 1
                 if course[i][j] == 0:
                     absent.append(j)
@@ -56,6 +71,10 @@ def roll_call_fakerl(course: list, less: list):
 
 
 def roll_call_knn(course: list):
+    """
+    :param course: 课程信息
+    :return: 有效点名次数和总次数
+    """
     stuno = np.array(list(range(90)))
     total_times = 0
     eff_times = 0
@@ -72,6 +91,10 @@ def roll_call_knn(course: list):
 
 
 def calculate_e(res: list):
+    """
+    :param res: 点名次数和总次数组成的列表
+    :return: 评价指标E
+    """
     eff = 0
     total = 0
     for r in res:
