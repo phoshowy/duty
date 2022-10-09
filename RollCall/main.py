@@ -17,10 +17,12 @@ if __name__ == '__main__':
         less = less_gpa(gpa=gpa, point=point)
 
         # 分别调用两种算法
-        res_fakerl.append(round(roll_call_fakerl(course, less), 2))
-        res_knn.append(round(roll_call_knn(course), 2))
+        res_fakerl.append(roll_call_fakerl(course, less))
+        res_knn.append(roll_call_knn(course))
 
-        print(res_fakerl)
-        # [0.82, 0.75, 0.77, 0.73, 0.79]
-        print(res_knn)
-        # [0.9, 0.9, 0.88, 0.83, 0.84]
+        # 分别计算两种算法的E值
+        print(calculate_e(res_fakerl))
+        # 0.7806788511749347
+
+        print(calculate_e(res_knn))
+        # 0.8747591522157996
